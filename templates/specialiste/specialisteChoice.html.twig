@@ -1,0 +1,124 @@
+{% extends "base.html.twig" %}
+{% block body %}
+	<div class="card card-default">
+		<div class="card-header">
+			<h3 class="card-title">Date de la pronostique:
+				{{ dateChoice }}
+			</h3>
+		</div>
+		<div class="card-body">
+			<form action="listeRankCourse" methode="POST">
+				<div class="row">
+					<div class="col-1">
+						<label>spe</label>
+						{{ form_widget(form2.specialiste) }}
+					</div>
+
+					<div class="col-1">
+						<div class="form-group">
+							<input type="hidden" value="{{ dateChoice }}" name="dateCourseChoice"/>
+							<label>1er</label>
+							<select class="form-control" id="premier" name="premier">
+								{% for crs in courseArray %}
+									<option>{{ (crs.numero) }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="col-1">
+						<label>2eme</label>
+						<select class="form-control" id="deuxieme" name="deuxieme">
+							{% for crs in courseArray %}
+								<option>{{ (crs.numero) }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-1">
+						<label>3eme</label>
+						<select class="form-control" id="troisieme" name="troisieme">
+							{% for crs in courseArray %}
+								<option>{{ (crs.numero) }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-1">
+						<label>4eme</label>
+						<select class="form-control" id="quatrieme" name="quatrieme">
+							{% for crs in courseArray %}
+								<option>{{ (crs.numero) }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-1">
+						<label>5eme</label>
+						<select class="form-control" id="cinqieme" name="cinqieme">
+							{% for crs in courseArray %}
+								<option>{{ (crs.numero) }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-1">
+						<label>6eme</label>
+						<select class="form-control" id="sixieme" name="sixieme">
+							{% for crs in courseArray %}
+								<option>{{ (crs.numero) }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-1">
+						<label>7eme</label>
+						<select class="form-control" id="septieme" name="septieme">
+							{% for crs in courseArray %}
+								<option>{{ (crs.numero) }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-1">
+						<label>8eme</label>
+						<select class="form-control" id="huitieme" name="huitieme">
+							{% for crs in courseArray %}
+								<option>{{ (crs.numero) }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-1">
+						<label></br>
+					</label>
+					<button type="submit" class="btn btn-block btn-primary">Valider</button>
+				</div>
+			</form>
+
+
+		</div>
+		<div class="card card-default">
+			<div class="card-header">
+				<h3 class="card-title">
+					pronostique
+				</h3>
+			</div>
+			<div class="card-body">
+
+				<table class="table table-bordered">
+					{% for arrayspchoice in arraySpecilisteHaveChoice %}
+						<tr>
+							{% set break = false %}
+							{% for s in arrayspchoice %}
+								{% if not break %}
+									<td>
+										{{s.specialiste.specialisteName }}
+										{% set break = true %}
+									</td>
+								{% endif %}
+							{% endfor %}
+
+							{% for spchoice in arrayspchoice %}
+								<td>{{ spchoice.course.numero}}</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tr>
+			</table>
+
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html.twig" %}
+{% block head %}
+	<li class="nav-item d-none d-sm-inline-block">
+		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">
+			Nouveau
+		</button>
+	</li>
+	<li class="nav-item d-none d-sm-inline-block">
+		{{ form_widget(dateform.date)}}
+	</li>
+	<li class="nav-item d-none d-sm-inline-block">
+		{{ form_widget(dateform.submit)}}
+	</li>
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="modal fade" id="modal-lg">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Ajouter Course</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				<form action="add_courses" methode = "POST">
+					<table>
+						<tr>
+							<td>Distance
+								{{ form_widget ( form.distance)}}</td>
+							<td>Numero
+								{{ form_widget ( form.numero)}}
+							</td>
+							<td>Gains
+								{{ form_widget ( form.gains)}}</td>
+							<td>Cote
+								{{ form_widget ( form.cote) }}</td>
+						</tr>
+						<tr>
+							<td>Date
+								{{ form_widget ( form.date)}}</td>
+							<td>Distance
+								{{ form_widget ( form.entraineur)}}</td>
+							<td>Numero
+								{{ form_widget ( form.horse)}}
+							</td>
+							<td>Gains
+								{{ form_widget ( form.jockey)}}</td>
+
+						</tr>
+					</table>
+					<form>
+					 {# {{form_start(form, {'action': , 'method': 'POST'})}} #} 
+
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					{{ form_widget ( form.submit)}}
+				</div>
+			</div>
+
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+{% endblock %}

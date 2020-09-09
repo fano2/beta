@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+{% block body %}
+	<style>
+		.center {
+			margin: auto;
+			width: 60%;
+		}
+	</style>
+	<div class="center">
+		{{form_start(form, {'action': path('showformChoiceCourse'), 'method': 'POST'})}}
+		{{ form(form)}}
+			{{form_end(form)}}
+		</div>
+
+	{% endblock %}

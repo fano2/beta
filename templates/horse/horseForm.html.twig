@@ -1,0 +1,78 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="card card-default">
+		<div class="card-hoead">
+			<h3 class="card-title"></h3>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-2">{{form_start(form, {'action': path('participant'), 'method': 'POST'})}}
+
+				</div>
+				<table border="0">
+					<tr>
+						<td>Partant{{ form_widget ( form.horseName)}}
+						</td>
+						<td>Sexe
+							{{ form_widget (form.sexe) }}
+						</td>
+						<td>Age
+							{{ form_widget ( form.age)}}
+						</td>
+						<td>proprietaire
+							{{ form_widget ( form.proprietaire)}}
+						</td>
+						<td>Musique
+							{{ form_widget (form.courseResume) }}
+						</td>
+						<td>
+							<p></p>
+							{{ form_widget (form.submit) }}
+						</td>
+					</tr>
+				</table>
+
+
+				{{form_end(form)}}
+			</div>
+
+		</div>
+
+
+		<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Rendering engine</th>
+					<th>Browser</th>
+					<th>Platform(s)</th>
+					<th>Engine version</th>
+					<th>CSS grade</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Trident</td>
+					<td>Internet
+						                      Explorer 4.0
+					</td>
+					<td>Win 95+</td>
+					<td>
+						4</td>
+					<td>X</td>
+				</tr>
+				
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Rendering engine</th>
+					<th>Browser</th>
+					<th>Platform(s)</th>
+					<th>Engine version</th>
+					<th>CSS grade</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+</div></div>{% endblock %}

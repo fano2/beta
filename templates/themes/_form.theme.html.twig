@@ -1,0 +1,17 @@
+{% use "bootstrap_3_layout.html.twig" %}
+
+{% block form_ro -%}
+{% set showErrorIcon = (not compound or force_error|default(false)) and not valid %}
+<div class="form-group {% if (not compound or force_error|default(false)) and not valid %} has-errors{% endif %}{{ showErrorIcon ? ' has-feedback' : '' }}">
+	<div class="input-group{{ showErrorIcon ? ' border-red' : '' }}">
+		<div class="input-group-addon">{{- form_label(form) -}}</div>
+		{% if not compound %}
+			{{- form_widget(form) -}}
+		{% else %}
+			<div class="input-compound">{{- form_widget(form) -}}</div>
+		{% endif %}
+		{{- form_errors(form) -}}
+	</div>
+</div>{%- endblock form_row %}{% block form_widget_simple -%}{% set showErrorIcon = false %}{% if type is not defined or type not in ['file', 'hidden'] %}
+{% set showErrorIcon = (not compound or force_error|default(false)) and not valid %}{% endif %}{{- parent() -}}{% if showErrorIcon %}
+<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>{% endif %}{%- endblock form_widget_simple %}{% block form_errors %}{% endblock form_errors %}
