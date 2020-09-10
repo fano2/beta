@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+	<style>
+		.center {
+			margin: auto;
+			width: 60%;
+			border: 8px solid #FFF;
+			padding: 10px;
+		}
+	</style>
+	<div class="center">
+		{{form_start(form, {'action': path('newProprietaire'), 'method': 'POST'})}}
+		{{ form(form)}}
+			{{form_end(form)}}
+		</div>
+{% endblock %}
