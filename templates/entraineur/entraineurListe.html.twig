@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+<li><a href="{{ path('entrainneur_page') }}" class="nav-link">Nouveau</a></li> 
+<li><a href="{{ path('entraineurliste') }}" class="nav-link">Liste</a></li> 
+{% endblock %}
+{% block body %}
+<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					
+					<th>Nom</th>
+					<th>Age</th>
+                    <th>Sexe</th>
+                  
+					
+				</tr>
+			</thead>
+			<tbody>
+			{% for e in entraineurListe %}
+				<tr>
+					<td>{{ e.entraineurName }}</td>
+					<td>{{ e.entraineurSexe }}</td>
+					<td>{{ e.entraineurAge }}</td>
+			
+				</tr>
+			{% endfor %}
+			</tbody>
+			
+		</table>
+{% endblock %}

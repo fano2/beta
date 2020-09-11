@@ -9,11 +9,20 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Jockey;
 use App\Form\JockeyFormType;
 use doctrine\common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 class JockeyControlleur extends AbstractController
 {
 
+    private $em;
 
+    public function __construct(EntityManagerInterface $em, ManagerRegistry $registry)
+    {
+        $this->registry = $registry;
+        $this->em = $this->registry->getManager('default');
+        //$this->emm = 
+    }
     /**
      * @Route("/bet/Jockey", name="jockey_page")
      */
@@ -45,6 +54,15 @@ class JockeyControlleur extends AbstractController
         return $this->render("jockey/jockeyForm.html.twig", [
             "form_title" => "Ajouter un course",
             "form" => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/bet/JockeyListe", name="JockeyListe")
+     */
+    public function jockeyListe(Request $request): Response{
+        return $this->render("jockey/jockeyListe.html.twig",[
+            'jockeyListe' => $this->em->getRepository(Jockey::class)->findAll()
         ]);
     }
 }

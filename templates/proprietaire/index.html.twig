@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block head %}
+<li><a href="{{ path('proprietaire') }}" class="nav-link">Nouveau</a></li> 
+<li><a href="{{ path('proprietaireListe') }}" class="nav-link">Liste Proprietaire</a></li> 
 
+{% endblock %}
 {% block body %}
 	<style>
 		.center {

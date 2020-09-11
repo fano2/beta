@@ -7,6 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Proprietaire;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class HorseTypeFormType extends AbstractType
 {
@@ -17,8 +20,12 @@ class HorseTypeFormType extends AbstractType
             ->add('sexe')
             ->add('courseResume')
             ->add('age')
-            ->add('proprietaire')
+            ->add('proprietaire',EntityType::class,[
+                'class' => Proprietaire::class,
+                'choice_label' => 'proprietaireName'
+            ])
             ->add('submit', SubmitType::class, [ 'label'=> 'Enregistrer'])
+            ->add('id', HiddenType::class)
         ;
     }
 

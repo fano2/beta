@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+<li><a href="{{ path('jockey_page') }}" class="nav-link">Nouveau</a></li> 
+<li><a href="{{ path('JockeyListe') }}" class="nav-link">Liste jockey</a></li> 
+{% endblock %}
+{% block body %}
+<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Age</th>
+                    <th>Poids</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for j in jockeyListe %}
+				<tr>
+					<td>{{ j.jockeyName }}</td>
+					<td>{{ j.jockeyAge }}</td>
+					<td> {{ j.poids }} </td>
+				</tr>
+			{% endfor %}
+			</tbody>
+			
+		</table>
+{% endblock %}

@@ -8,10 +8,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Entraineur;
 use App\Form\EntraineurFormType;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 class EntraineurControlleur extends AbstractController
 {
+    private $em;
+
+    public function __construct(EntityManagerInterface $em, ManagerRegistry $registry)
+    {
+        $this->registry = $registry;
+        $this->em = $this->registry->getManager('default');
+        //$this->emm = 
+    }
     /**
      * @Route("/bet/entraineur", name="entrainneur_page")
      */
@@ -41,6 +51,15 @@ class EntraineurControlleur extends AbstractController
         }
         return $this->render("entraineur/entraineur.html.twig", [
             "form" => $form->createView()
+        ]);
+    }
+
+     /**
+     * @Route("bet/entraineurliste", name="entraineurliste")
+     */
+    public function proprietaireListe(Request $request): Response{
+        return $this->render("entraineur/entraineurListe.html.twig",[
+            'entraineurListe' => $this->em->getRepository(Entraineur::class)->findAll()
         ]);
     }
 }

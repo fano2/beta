@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+<li><a href="{{ path('proprietaire') }}" class="nav-link">Nouveau</a></li> 
+<li><a href="{{ path('proprietaireListe') }}" class="nav-link">Liste Proprietaire</a></li> 
+{% endblock %}
+{% block body %}
+
+<div id="proprietaireListeView">
+<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					
+					<th>Nom</th>
+					<th>Adresse</th>
+                    <th></th>
+					
+				</tr>
+			</thead>
+			<tbody>
+			{% for p in proprietaireListe %}
+				<tr>
+					<td>{{ p.proprietaireName }}</td>
+					<td>{{ p.adress }}</td>
+					<td><button type="button" value="{{ p.id }}" class="modif_p btn btn-default" data-toggle="modal" data-target="#modal-lg">Modifier</button>
+					<button type="button" value="{{ p.id }}" class="delete_p btn btn-danger" data-toggle="modal" data-target="#modal-danger">supprimer</button>
+					
+					</td>		
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+</div>
+
+
+
+<div class="modal fade" id="modal-lg">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modification</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				
+				<div id="modif_view_p">
+				
+				</div>
+
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					
+				</div>
+			</div>
+
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+
+<div class="modal fade" id="modal-danger">
+        <div class="modal-dialog">
+          <div class="modal-content bg-danger">
+            <div class="modal-header">
+              <h4 class="modal-title">Suppression</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Voulez-vous vraiment suprimer cet proprietaire&hellip;</p>
+            </div>
+            <div class="modal-footer justify-content-between" id="id_p_delete">
+             ok
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+{% endblock %}

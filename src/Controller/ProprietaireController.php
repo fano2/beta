@@ -53,5 +53,63 @@ class ProprietaireController extends AbstractController
 
     }
 
+    /**
+     * @Route("/proprietaire/proprietaireListe", name="proprietaireListe")
+     */
+    public function proprietaireListe(): Response{
+        return $this->render("proprietaire/proprietaireListe.html.twig",[
+            'proprietaireListe' => $this->em->getRepository(Proprietaire::class)->findAll()
+        ]);
+    }
 
+    /**
+    * @Route("/proprietaire/modify-proprietaire/{id}", name="modify_proprietaire")
+    */
+    public function modify_proprietaire(Request $request, int $id): Response{
+        $proprietaire = $this->em->getRepository(Proprietaire::class)->find($id);
+        $form = $this->createForm(ProprietaireFormType::class, $proprietaire);
+        $form->handleRequest($request);
+        return $this->render("proprietaire/proprietaireModif.html.twig",[
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/proprietaire/update", name="update_proprietaire")
+     */
+    public function showProprietaireUpdated (Request $request): Response{
+        $propritaireId = intval($request->request->get('proprietaire_form')['id']);
+        $proprietaire = $this->em->getRepository(Proprietaire::class)->find($propritaireId);
+        $form = $this->createForm(ProprietaireFormType::class, $proprietaire);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $this->em->flush();
+        }
+        return $this->render("proprietaire/proprietaireListe.html.twig",[
+            'proprietaireListe' => $this->em->getRepository(Proprietaire::class)->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/proprietaire/confirmDelete/{id}", name="cofirm_delete_proprietaire")
+     */
+    public function proprietaireDeleteConfirmation(int $id): Response{
+        return $this->render("proprietaire/btn_proprietaire_confirm_delete.html.twig",[
+            'id' => $id
+        ]);
+    }
+
+    /**
+     * @Route("/proprietaire/delete_proprietaire", name="delete_proprietaire")
+     */
+    public function deleteProprietaire(Request $request): Response{
+        $proprietaireId = intval($request->query->get("btn_delete_proprietaire"));
+        $proprietaire = $this->em->getRepository(Proprietaire::class)->find($proprietaireId);
+        $this->em->remove($proprietaire);
+        $this->em->flush();
+        return $this->render("proprietaire/proprietaireListe.html.twig",[
+            'proprietaireListe' => $this->em->getRepository(Proprietaire::class)->findAll()
+        ]);
+    }
 }

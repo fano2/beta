@@ -32,13 +32,23 @@ class CourseControlleur extends AbstractController
      */
     public function couresPage(Request $request): Response
     {
+        //dd();
         $form = $this->createForm(CourseFormType::class);
         $parametreDate = new ParametreDate();
         $dateform = $this->createForm(ParametreDateFormType::class, $parametreDate);
+        $dateCourse = null;
+        if(count($request->request)>0){
+            $dateCourse = $request->get('parametre_date_form')['date'];
+        }
+        $liste = false;
+        if($dateCourse != null){
+            $dateCourse = $this->em->getRepository(Course::class)->findBy(['date'=>$dateCourse]);
+        }
 
         return $this->render("course/course.html.twig", [
             "form_title" => "Course",
             "form" => $form->createView(),
+            "course" => $dateCourse,
             "dateform" => $dateform->createView()
 
         ]);
@@ -49,41 +59,44 @@ class CourseControlleur extends AbstractController
      */
     public function addCourses(Request $request): Response
     {
-       dd($request->query->get('date'));
+      // dd($request->query->get("course_form")['date']);
         if( $request->query->count()>0){
             $course = new Course ();
+            $time = strtotime($request->query->get("course_form")['date']);
+            $date = date('Y-m-d', $time);
+            // dd($date);
             $course
-                ->setDistance(floatval($request->query->get('distance')))
-                ->setNumero(intval($request->query->get('numero')))
-                ->setGains(intval($request->query->get('gains')))
-                ->setCote(floatval($request->query->get('cote')))
-                ->setDate($request->query->get('date'))
-                ->setEntraineur($this->em->getRepository(Entraineur::class)->find(intval($request->query->get('entraineur'))))
-                ->setHorse($this->em->getRepository(Horse::class)->find(intval($request->query->get('horse'))))
-                ->setJockey($this->em->getRepository(Jockey::class)->find(intval($request->query->get('jockey'))));
-                dd($course);
+                ->setDistance(floatval($request->query->get("course_form")['distance']))
+                ->setNumero(intval($request->query->get("course_form")['numero']))
+                ->setGains(intval($request->query->get("course_form")['gains']))
+                ->setCote(floatval($request->query->get("course_form")['cote']))
+                ->setDate($date)
+                ->setEntraineur($this->em->getRepository(Entraineur::class)->find(intval($request->query->get("course_form")['entraineur'])))
+                ->setHorse($this->em->getRepository(Horse::class)->find(intval($request->query->get("course_form")['horse'])))
+                ->setJockey($this->em->getRepository(Jockey::class)->find(intval($request->query->get("course_form")['jockey'])));
+                //dd($course);
         }
-
-        $course = new Course();
         
         $form = $this->createForm(CourseFormType::class, $course);
         $form->handleRequest($request);
         $parametreDate = new ParametreDate();
         $dateform = $this->createForm(ParametreDateFormType::class, $parametreDate);  
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($course);
             $entityManager->flush();
-            dd("mande");
-        }
-
+        $dateCourse = $this->em->getRepository(Course::class)->findBy(['date'=>$date]);    
         return $this->render("course/course.html.twig", [
             "form" => $form->createView(),
-            "dateform" => $dateform->createView()
+            "dateform" => $dateform->createView(),
+            "course" => $dateCourse,
         ]);
     }
 
-   
+    // /**
+    //  * Route("/bet/course_liste/", name="courseListe")
+    //  */
+    // public function listCourse(Request $request): Response{
+    //     dd($request);
+    //     $dateCourse = $this->em->getRepository(Course::class)->findBy(['date'=>$dateCourse]);
+    // }   
 }

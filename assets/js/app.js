@@ -21,4 +21,6 @@ require('admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 //import $ from 'jquery';
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+
+console.log('Hello Webpack Encore! Edit me in assets/js/app.jssss');

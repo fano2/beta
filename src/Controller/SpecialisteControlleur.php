@@ -8,10 +8,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Specialiste;
 use App\Form\SpecialisteFormType;
-
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 class SpecialisteControlleur extends AbstractController
 {
+
+    private $em;
+
+    public function __construct(EntityManagerInterface $em, ManagerRegistry $registry)
+    {
+        $this->registry = $registry;
+        $this->em = $this->registry->getManager('default');
+        //$this->emm = 
+    }
     /**
      * @Route("/bet/specialiste", name="specialiste_page")
      */
@@ -43,6 +53,15 @@ class SpecialisteControlleur extends AbstractController
         return $this->render("specialiste/specialiste.html.twig", [
             "form_title" => "Ajouter un course",
             "form" => $form->createView(),
+        ]);
+    }
+
+     /**
+     * @Route("/bet/specialisteListe", name="specialisteListe")
+     */
+    public function jockeyListe(Request $request): Response{
+        return $this->render("specialiste/specialisteListe.html.twig",[
+            'specialisteListe' => $this->em->getRepository(Specialiste::class)->findAll()
         ]);
     }
 }

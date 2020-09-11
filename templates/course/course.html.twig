@@ -5,15 +5,48 @@
 			Nouveau
 		</button>
 	</li>
+	{{ form_start(dateform, {'action':path('course_page'), 'methode':'POST'} ) }}
 	<li class="nav-item d-none d-sm-inline-block">
 		{{ form_widget(dateform.date)}}
 	</li>
 	<li class="nav-item d-none d-sm-inline-block">
 		{{ form_widget(dateform.submit)}}
 	</li>
+	{{form_end(dateform)}}
 {% endblock %}
 
 {% block body %}
+
+<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Numero</th>
+					<th>Nom</th>
+					<th>Entrainneur</th>
+					<th>Jockey</th>
+					<th>Distance</th>
+					<th>Gains</th>
+					<th>Cote</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for c in course %}
+				<tr>
+					<td>{{ c.numero }}</td>
+					<td>{{ c.horse.horseName }}</td>
+					<td>{{ c.entraineur.entraineurName }}</td>
+					<td>{{ c.jockey.jockeyName }}</td>
+					<td>{{ c.distance }}</td>
+					<td>{{ c.gains }}</td>
+					<td>{{ c.cote }}</td>
+					<td>action</td>
+					
+				</tr>
+			{% endfor %}
+			</tbody>
+			
+		</table>
 
 
 	<div class="modal fade" id="modal-lg">

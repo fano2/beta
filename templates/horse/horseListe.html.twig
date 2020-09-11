@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+<li><a href="{{ path('horse_page') }}" class="nav-link">Nouveau</a></li> 
+<li><a href="{{ path('listeHorse') }}" class="nav-link">Liste</a></li> 
+{% endblock %}
+{% block body %}
+<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					
+					<th>Nom</th>
+					<th>Sexe</th>
+                    <th>Age</th>
+                    <th>Proprietaire</th>
+                    <th>Musique</th>
+					<th></th>
+					
+				</tr>
+			</thead>
+			<tbody>
+			{% for h in listhorse %}
+				<tr>
+					<td>{{ h.horseName }}</td>
+					<td>{{ h.sexe }}</td>
+					<td>{{ h.age }}</td>
+					<td>{{ h.proprietaire.proprietaireName }}</td>
+                    <td>{{ h.courseResume }}</td>
+					<td><button type="button" value="{{ h.id }}" class="modif_h btn btn-default" data-toggle="modal" data-target="#modal-lg">Modifier</button>
+					<button type="button" value="{{ h.id }}" class="delete_h a btn btn-danger" data-toggle="modal" data-target="#modal-danger">supprimer</button>
+					</td>	
+					
+				</tr>
+			{% endfor %}
+			</tbody>
+			
+		</table>
+
+		<div class="modal fade" id="modal-lg">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modification</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				
+				<div id="btn_view_h">
+				
+				</div>
+
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					
+				</div>
+			</div>
+
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+
+<div class="modal fade" id="modal-danger">
+        <div class="modal-dialog">
+          <div class="modal-content bg-danger">
+            <div class="modal-header">
+              <h4 class="modal-title">Suppression</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Voulez-vous vraiment suprimer cet proprietaire&hellip;</p>
+            </div>
+            <div class="modal-footer justify-content-between" id="id_h_delete">
+             ok
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+{% endblock %}

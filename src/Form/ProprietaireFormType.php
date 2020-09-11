@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Proprietaire;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,6 +16,7 @@ class ProprietaireFormType extends AbstractType
         $builder
             ->add('proprietaireName')
             ->add('adress')
+            ->add('id', HiddenType::class)
             ->add('submit', SubmitType::class, [ 'label'=> 'Enregistrer']) 
         ;
     }

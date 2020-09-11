@@ -64,6 +64,7 @@ class Course
      */
     private $date;
 
+
    
     public function __construct()
     {
@@ -208,6 +209,12 @@ class Course
 
         return $this;
     }
+
+   
+
+    
+
+    
 
     
 }

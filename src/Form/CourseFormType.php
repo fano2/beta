@@ -28,9 +28,7 @@ class CourseFormType extends AbstractType
             ->add('numero', IntegerType::class)
             ->add('gains')
             ->add('cote')
-            ->add('date', DateType::class, [
-                'widget' => 'single_text',
-            ])
+            ->add('date')
             ->add('entraineur',EntityType::class,[
                 'class' => Entraineur::class,
                 'choice_label' => 'entraineurName',

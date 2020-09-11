@@ -18,6 +18,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "admin-lte": "^3.0"
+        "admin-lte": "3.0"
     }
 }
